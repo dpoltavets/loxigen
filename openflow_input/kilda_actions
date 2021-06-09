@@ -7,7 +7,7 @@ struct of_action_kilda_swap_field : of_action_kilda {
     uint32_t experimenter == 0x0000AA02;
     uint16_t exp_type == 3201;
     pad(2);
-    uint16_t n_bits;      // Number of bits to copy
+    uint16_t n_bits;      // Number of bits to swap
     uint16_t src_offset;  // Starting bit offset in source
     uint16_t dst_offset;  // Starting bit offset in destination
     pad(2);
