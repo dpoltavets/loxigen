@@ -1,0 +1,9 @@
+#version 4
+#version 5
+
+struct of_action_kilda : of_action_experimenter {
+    uint16_t type == 65535;
+    uint16_t len;
+    uint32_t experimenter == 0x0000AA02;
+    uint16_t exp_type == ?;
+};
