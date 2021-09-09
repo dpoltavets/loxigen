@@ -15,3 +15,26 @@ struct of_action_kilda_swap_field : of_action_kilda {
     uint32_t oxm_dst_header;
     pad(4);
 };
+
+struct of_action_kilda_push_vxlan_field : of_action_kilda {
+    uint16_t type == 0xFFFF;
+    uint16_t len;
+    uint32_t experimenter == 0x0000AA02;
+    uint16_t exp_type == 3202;
+    pad(2);
+    of_mac_addr_t eth_src;
+    of_mac_addr_t eth_dst;
+    of_ipv4_t ipv4_src;
+    of_ipv4_t ipv4_dst;
+    uint32_t vni;
+    uint16_t udp_src;
+    pad(2);
+};
+
+struct of_action_kilda_pop_vxlan_field : of_action_kilda {
+    uint16_t type == 0xFFFF;
+    uint16_t len;
+    uint32_t experimenter == 0x0000AA02;
+    uint16_t exp_type == 3203;
+    pad(6);
+};
