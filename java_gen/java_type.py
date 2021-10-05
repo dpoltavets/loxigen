@@ -904,7 +904,9 @@ exceptions = {
         'of_oxm_noviflow_eth_payload' : { 'value' : u8obj},
         'of_oxm_noviflow_rxtimestamp' : { 'value' : u8obj},
         'of_oxm_noviflow_txtimestamp' : { 'value' : u8obj},
-        'of_oxm_noviflow_packet_offset' : { 'value' : u8obj}
+        'of_oxm_noviflow_packet_offset' : { 'value' : u8obj},
+
+        'of_oxm_kilda_vxlan_vni' : { 'value' : u32obj }
 }
 
 
