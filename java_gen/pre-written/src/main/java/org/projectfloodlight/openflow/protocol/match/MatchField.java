@@ -363,6 +363,9 @@ public class MatchField<F extends OFValueType<F>> {
             new MatchField<TransportPort>("conn_tracking_tp_dst", MatchFields.CONN_TRACKING_TP_DST,
                     new Prerequisite<IpProtocol>(MatchField.IP_PROTO, IpProtocol.TCP));
 
+    public final static MatchField<U32> KILDA_VXLAN_VNI =
+            new MatchField<U32>("kilda_vxlan_vni", MatchFields.KILDA_VXLAN_VNI);
+
     public String getName() {
         return name;
     }
