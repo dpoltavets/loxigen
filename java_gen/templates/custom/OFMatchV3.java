@@ -32,6 +32,48 @@
         return Masked.of(oxm.getValue(), oxm.getMask());
     }
 
+    @Override
+    public <F extends OFValueType<F>> F getWithoutPrerequisitesCheck(MatchField<F> field)
+            throws UnsupportedOperationException {
+        if (!supports(field))
+            throw new UnsupportedOperationException("${msg.name} does not support matching on field " + field.getName());
+
+        OFOxm<F> oxm = this.oxmList.get(field);
+
+        if (oxm == null)
+            return null;
+
+        return oxm.getValue();
+    }
+
+    @Override
+    public <F extends OFValueType<F>> Masked<F> getMaskedWithoutPrerequisitesCheck(MatchField<F> field)
+            throws UnsupportedOperationException {
+        if (!supportsMasked(field))
+            throw new UnsupportedOperationException("${msg.name} does not support masked matching on field " + field.getName());
+
+        OFOxm<F> oxm = this.oxmList.get(field);
+
+        if (oxm == null)
+            return null;
+
+        if (oxm.getMask() == null)
+            return null;
+
+        // TODO: Make OfOxm extend Masked and just return the OXM?
+        return Masked.of(oxm.getValue(), oxm.getMask());
+    }
+
+    @Override
+    public boolean isExactWithoutPrerequisitesCheck(MatchField<?> field) {
+        if (!supports(field))
+            throw new UnsupportedOperationException("${msg.name} does not support matching on field " + field.getName());
+
+        OFOxm<?> oxm = this.oxmList.get(field);
+
+        return oxm != null && !oxm.isMasked();
+    }
+
     private static boolean supportsField(MatchField<?> field) {
         switch (field.id) {
             //:: for id_constant in sorted(set(id_constant for _, id_constant, _ in model.oxm_map.values())):
@@ -114,6 +156,33 @@
         return new Iterable<MatchField<?>>() {
             public Iterator<MatchField<?>> iterator() {
                 return new MatchFieldIterator();
+            }
+        };
+    }
+
+    private class MatchFieldWithoutPrerequisitesCheckIterator extends AbstractIterator<MatchField<?>> {
+        private Iterator<OFOxm<?>> oxmIterator;
+
+        MatchFieldWithoutPrerequisitesCheckIterator() {
+            oxmIterator = oxmList.iterator();
+        }
+
+        @Override
+        protected MatchField<?> computeNext() {
+            while(oxmIterator.hasNext()) {
+                OFOxm<?> oxm = oxmIterator.next();
+                return oxm.getMatchField();
+            }
+            endOfData();
+            return null;
+        }
+    }
+
+    @Override
+    public Iterable<MatchField<?>> getMatchFieldsWithoutPrerequisitesCheck() {
+        return new Iterable<MatchField<?>>() {
+            public Iterator<MatchField<?>> iterator() {
+                return new MatchFieldWithoutPrerequisitesCheckIterator();
             }
         };
     }

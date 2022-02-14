@@ -47,3 +47,25 @@
     public Iterable<MatchField<?>> getMatchFields() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public <F extends OFValueType<F>> F getWithoutPrerequisitesCheck(MatchField<F> field)
+            throws UnsupportedOperationException {
+            throw new UnsupportedOperationException();
+            }
+
+    @Override
+    public <F extends OFValueType<F>> Masked<F> getMaskedWithoutPrerequisitesCheck(MatchField<F> field)
+            throws UnsupportedOperationException {
+            throw new UnsupportedOperationException();
+            }
+
+    @Override
+    public Iterable<MatchField<?>> getMatchFieldsWithoutPrerequisitesCheck() {
+            throw new UnsupportedOperationException();
+            }
+
+    @Override
+    public boolean isExactWithoutPrerequisitesCheck(MatchField<?> field) throws UnsupportedOperationException {
+            throw new UnsupportedOperationException();
+            }
