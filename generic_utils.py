@@ -32,6 +32,7 @@ Intended to be imported into another namespace
 """
 import logging
 import collections
+import collections.abc
 import functools
 import sys
 
@@ -79,7 +80,7 @@ def memoize(obj):
 #
 ################################################################
 
-class OrderedSet(collections.MutableSet):
+class OrderedSet(collections.abc.MutableSet):
     """
     A set implementations that retains insertion order.  From the receipe
     http://code.activestate.com/recipes/576694/
